@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Environments and secrets
+.venv/
+.env
+.env.*
+!.env.example
+
+# Build and tooling
+build/
+dist/
+*.egg-info/
+.pre-commit-cache/
+
+# OS and IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

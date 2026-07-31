@@ -1,0 +1,73 @@
+[project]
+name = "ai-commerce-os"
+version = "0.1.0"
+description = "AI-Commerce-OS backend platform"
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+license = { text = "Proprietary" }
+authors = [{ name = "AI-Commerce-OS Team" }]
+dependencies = [
+    "alembic>=1.14,<2.0",
+    "fastapi>=0.115,<1.0",
+    "psycopg[binary]>=3.2,<4.0",
+    "pydantic-settings>=2.7,<3.0",
+    "redis>=5.2,<6.0",
+    "sqlmodel>=0.0.22,<0.1.0",
+    "structlog>=24.4,<26.0",
+    "uvicorn[standard]>=0.32,<1.0",
+]
+
+[project.scripts]
+ai-commerce-api = "ai_commerce_os.main:run"
+
+[build-system]
+requires = ["uv_build>=0.6,<0.7"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28,<1.0",
+    "mypy>=1.13,<2.0",
+    "pre-commit>=4.0,<5.0",
+    "pytest>=8.3,<9.0",
+    "pytest-cov>=6.0,<7.0",
+    "ruff>=0.8,<1.0",
+    "types-redis>=4.6.0.20241004",
+]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-markers --strict-config --cov=ai_commerce_os --cov-report=term-missing"
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.coverage.run]
+branch = true
+source = ["ai_commerce_os"]
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true
+
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B", "SIM", "ASYNC", "RUF"]
+ignore = ["RUF012"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["ai_commerce_os"]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+warn_unreachable = true
+show_error_codes = true
+mypy_path = "src"
+exclude = ["alembic"]
+
+[[tool.mypy.overrides]]
+module = ["sqlmodel.*"]
+ignore_missing_imports = true

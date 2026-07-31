@@ -1,0 +1,10 @@
+target-version = "py313"
+line-length = 100
+src = ["src", "tests"]
+
+[lint]
+select = ["E", "F", "I", "N", "UP", "B", "SIM", "ASYNC", "RUF"]
+ignore = ["RUF012"]
+
+[lint.isort]
+known-first-party = ["ai_commerce_os"]
