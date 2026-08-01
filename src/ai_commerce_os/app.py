@@ -5,6 +5,7 @@ import structlog
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from ai_commerce_os import __version__
 from ai_commerce_os.api.health import router as health_router
 from ai_commerce_os.config.settings import Settings, get_settings
 from ai_commerce_os.infrastructure.cache.client import create_redis_client
@@ -26,7 +27,10 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         app.state.settings = active_settings
         app.state.db_engine = create_database_engine(active_settings.database_url)
         app.state.redis = create_redis_client(active_settings.redis_url)
-        structlog.get_logger(__name__).info("application_started", environment=active_settings.app_env)
+        structlog.get_logger(__name__).info(
+            "application_started",
+            environment=active_settings.app_env,
+        )
         yield
         app.state.redis.close()
         app.state.db_engine.dispose()
@@ -35,7 +39,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app = FastAPI(
         title=active_settings.app_name,
         debug=active_settings.app_debug,
-        version="0.1.0",
+        version=__version__,
         lifespan=lifespan,
     )
     app.add_middleware(

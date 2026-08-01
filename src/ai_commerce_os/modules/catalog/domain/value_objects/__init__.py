@@ -1,0 +1,1 @@
+"""Catalog value object placeholders."""

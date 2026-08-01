@@ -22,7 +22,9 @@ class Settings(BaseSettings):
     app_host: str = "0.0.0.0"
     app_port: int = Field(default=8000, ge=1, le=65535)
     app_cors_origins: list[str] = Field(default_factory=list)
-    database_url: str = "postgresql+psycopg://ai_commerce_os:change-me@localhost:5432/ai_commerce_os"
+    database_url: str = (
+        "postgresql+psycopg://ai_commerce_os:change-me@localhost:5432/ai_commerce_os"
+    )
     redis_url: str = "redis://localhost:6379/0"
 
     @property

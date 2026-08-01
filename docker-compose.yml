@@ -11,6 +11,8 @@ services:
       redis:
         condition: service_healthy
     restart: unless-stopped
+    networks:
+      - backend
 
   postgres:
     image: postgres:17-alpine
@@ -25,6 +27,8 @@ services:
       retries: 10
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend
 
   redis:
     image: redis:7-alpine
@@ -36,7 +40,13 @@ services:
       retries: 10
     volumes:
       - redis_data:/data
+    networks:
+      - backend
 
 volumes:
   postgres_data:
   redis_data:
+
+networks:
+  backend:
+    driver: bridge

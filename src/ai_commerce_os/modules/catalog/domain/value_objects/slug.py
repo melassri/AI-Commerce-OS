@@ -1,0 +1,2 @@
+class Slug:
+    """Slug placeholder."""
