@@ -26,7 +26,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         app.state.settings = active_settings
         app.state.db_engine = create_database_engine(active_settings.database_url)
         app.state.redis = create_redis_client(active_settings.redis_url)
-        structlog.get_logger(__name__).info("application_started", environment=active_settings.app_env)
+        structlog.get_logger(__name__).info(
+            "application_started", environment=active_settings.app_env
+        )
         yield
         app.state.redis.close()
         app.state.db_engine.dispose()
