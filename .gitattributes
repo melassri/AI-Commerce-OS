@@ -1,0 +1,16 @@
+# Normalize text files and preserve the repository's LF convention.
+* text=auto eol=lf
+
+# Treat generated and binary assets correctly.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.gz binary
+
+# Keep Windows command files usable when introduced.
+*.bat text eol=crlf
+*.cmd text eol=crlf
